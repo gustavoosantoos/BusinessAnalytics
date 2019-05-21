@@ -34,7 +34,7 @@ namespace SP500HoltWinters
                     .Skip(i)
                     .Take(_tamanhoPeriodo);
 
-                _linhas[i].S = _linhas[i].Valor / periodo.Average(i => i.Valor);
+                _linhas[i].S = _linhas[i].Valor / periodo.Average(item => item.Valor);
             }
         }
     }
