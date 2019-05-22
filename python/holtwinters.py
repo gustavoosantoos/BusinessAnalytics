@@ -4,11 +4,12 @@ from item import Item
 from functools import reduce
 
 class HoltWinters:
+    __alfa__ = 0.8
+    __beta__ = 0.8
+    __gama__ = 0.8
+
     def __init__(self, itens, tamanhoPeriodo = 3):
         self.itens = itens
-        self.__alfa__ = 0.8
-        self.__beta__ = 0.8
-        self.__gama__ = 0.8
         self.__tamanhoPeriodo__ = tamanhoPeriodo
 
     def __setup__(self): 
