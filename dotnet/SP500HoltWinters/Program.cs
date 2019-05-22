@@ -12,19 +12,32 @@ namespace SP500HoltWinters
     {
         static void Main(string[] args)
         {
+            var fileName = "sp500input.csv";
+            var skipHeader = true;
+            var separator= ';';
+            var outputFileName = "HoltWinters.csv";
+
+            Console.WriteLine($"Carregando dados do arquivo [{fileName}] ...");
+
             var parser = new CsvParser<ItemLinha>(
-                new CsvParserOptions(true, ';'),
+                new CsvParserOptions(skipHeader, separator),
                 new ItemLinhaMapper());
 
+            Console.WriteLine($"Convertendo dados para objetos...");
+
             var linhas = parser
-                .ReadFromFile("sp500input.csv", Encoding.UTF8)
+                .ReadFromFile(fileName, Encoding.UTF8)
                 .Select(x => x.Result)
                 .ToList();
+
+            Console.WriteLine("Iniciando cálculo HoltWinters...");
 
             var calculator = new HoltWinterCalculator(linhas, 90);
             var result = calculator.Calculate(0);
 
-            using (var file = File.CreateText("HoltWinters.csv"))
+            Console.WriteLine("Cálculos finalizados, iniciando criação do arquivo de saída...");
+
+            using (var file = File.CreateText(outputFileName))
             {
                 file.WriteLine($"Data;Valor;L;B;S;F;E;E%");
 
@@ -34,7 +47,8 @@ namespace SP500HoltWinters
                 }
             }
 
-            Console.ReadKey();
+            Console.WriteLine($"Arquivo de saída criado com o nome [{outputFileName}]");
+            Console.WriteLine("Processo finalizado.");
         }
     }
 }
