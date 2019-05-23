@@ -14,10 +14,11 @@ class HoltWinters:
 
     def __setup__(self): 
         primeiroPeriodo = self.itens[0:self.__tamanhoPeriodo__]
+        mediaValorPeriodo = Math.avg(lambda v: v.valor, primeiroPeriodo)
         for item in primeiroPeriodo:
-            item.s = item.valor / Math.avg(lambda v: v.valor, primeiroPeriodo)
+            item.s = item.valor / mediaValorPeriodo
         ultimoItemPeriodo = primeiroPeriodo[-1]
-        ultimoItemPeriodo.l = Math.avg(lambda v: v.valor, primeiroPeriodo)
+        ultimoItemPeriodo.l = mediaValorPeriodo
 
     def calculate(self, numeroPrevisoes):
         self.__setup__()
