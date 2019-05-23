@@ -17,8 +17,11 @@ class HoltWinters:
         mediaValorPeriodo = Math.avg(lambda v: v.valor, primeiroPeriodo)
         for item in primeiroPeriodo:
             item.s = item.valor / mediaValorPeriodo
+        
         ultimoItemPeriodo = primeiroPeriodo[-1]
         ultimoItemPeriodo.l = mediaValorPeriodo
+        ultimoItemPeriodo.b = Math.extremesAvg(lambda v: v.valor, primeiroPeriodo)
+
 
     def calculate(self, numeroPrevisoes):
         self.__setup__()
