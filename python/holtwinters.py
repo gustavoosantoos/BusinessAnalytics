@@ -1,6 +1,7 @@
 import pandas as pd
 import datetime
 from item import Item
+from mathutils import Math
 from functools import reduce
 
 class HoltWinters:
@@ -14,8 +15,12 @@ class HoltWinters:
 
     def __setup__(self): 
         primeiroPeriodo = self.itens[0:self.__tamanhoPeriodo__]
+        
         for item in primeiroPeriodo:
-            item.s = item.valor / (reduce(lambda a, b: a + b.valor, primeiroPeriodo, 0) / self.__tamanhoPeriodo__)
+            item.s = item.valor / Math.avg(lambda v: v.valor, primeiroPeriodo)
+
+        ultimoItemPeriodo = primeiroPeriodo[-1]
+        ultimoItemPeriodo.l = Math.avg(lambda v: v.valor, primeiroPeriodo)
 
     def calculate(self, numeroPrevisoes):
         self.__setup__()
