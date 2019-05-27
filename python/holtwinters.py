@@ -22,9 +22,16 @@ class HoltWinters:
         ultimoItemPeriodo.l = mediaValorPeriodo
         ultimoItemPeriodo.b = Math.extremesAvg(lambda v: v.valor, primeiroPeriodo)
 
+    def __calculate__(self):
+        print('')
+
+    def __forecast__(self):
+        print('')
 
     def calculate(self, numeroPrevisoes):
         self.__setup__()
+        self.__calculate__()
+        self.__forecast__()
         return self.itens
 
     @staticmethod
